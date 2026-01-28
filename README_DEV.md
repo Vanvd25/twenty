@@ -39,8 +39,6 @@ corepack enable # Enables Yarn 4
 
 ```
 
----
-
 ## 🛠 Installation Steps
 
 ### Step 1: Clone the Repository
