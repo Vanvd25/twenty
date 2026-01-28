@@ -30,7 +30,7 @@ import {
   WORKFLOW_STANDARD_FIELD_IDS,
   WORKFLOW_VERSION_STANDARD_FIELD_IDS,
   WORKSPACE_MEMBER_STANDARD_FIELD_IDS,
-} from 'src/engine/workspace-manager/workspace-sync-metadata/constants/standard-field-ids';
+} from 'src/engine/workspace-manager/workspace-migration/constant/standard-field-ids';
 
 export const STANDARD_OBJECTS = {
   attachment: {
@@ -57,17 +57,27 @@ export const STANDARD_OBJECTS = {
       updatedBy: {
         universalIdentifier: ATTACHMENT_STANDARD_FIELD_IDS.updatedBy,
       },
-      task: { universalIdentifier: ATTACHMENT_STANDARD_FIELD_IDS.task },
-      note: { universalIdentifier: ATTACHMENT_STANDARD_FIELD_IDS.note },
-      person: { universalIdentifier: ATTACHMENT_STANDARD_FIELD_IDS.person },
-      company: { universalIdentifier: ATTACHMENT_STANDARD_FIELD_IDS.company },
-      opportunity: {
-        universalIdentifier: ATTACHMENT_STANDARD_FIELD_IDS.opportunity,
+      targetTask: {
+        universalIdentifier: ATTACHMENT_STANDARD_FIELD_IDS.targetTask,
       },
-      dashboard: {
-        universalIdentifier: ATTACHMENT_STANDARD_FIELD_IDS.dashboard,
+      targetNote: {
+        universalIdentifier: ATTACHMENT_STANDARD_FIELD_IDS.targetNote,
       },
-      workflow: { universalIdentifier: ATTACHMENT_STANDARD_FIELD_IDS.workflow },
+      targetPerson: {
+        universalIdentifier: ATTACHMENT_STANDARD_FIELD_IDS.targetPerson,
+      },
+      targetCompany: {
+        universalIdentifier: ATTACHMENT_STANDARD_FIELD_IDS.targetCompany,
+      },
+      targetOpportunity: {
+        universalIdentifier: ATTACHMENT_STANDARD_FIELD_IDS.targetOpportunity,
+      },
+      targetDashboard: {
+        universalIdentifier: ATTACHMENT_STANDARD_FIELD_IDS.targetDashboard,
+      },
+      targetWorkflow: {
+        universalIdentifier: ATTACHMENT_STANDARD_FIELD_IDS.targetWorkflow,
+      },
     },
     indexes: {
       taskIdIndex: {
@@ -1142,6 +1152,7 @@ export const STANDARD_OBJECTS = {
         universalIdentifier: OPPORTUNITY_STANDARD_FIELD_IDS.pointOfContact,
       },
       company: { universalIdentifier: OPPORTUNITY_STANDARD_FIELD_IDS.company },
+      owner: { universalIdentifier: '20202020-be7e-4d1e-8e19-3d5c7c4b9f2a' },
       favorites: {
         universalIdentifier: OPPORTUNITY_STANDARD_FIELD_IDS.favorites,
       },
@@ -1943,6 +1954,9 @@ export const STANDARD_OBJECTS = {
       },
       assignedTasks: {
         universalIdentifier: WORKSPACE_MEMBER_STANDARD_FIELD_IDS.assignedTasks,
+      },
+      ownedOpportunities: {
+        universalIdentifier: '20202020-9e4d-4b3a-8c1f-6d7e8f9a0b1c',
       },
       favorites: {
         universalIdentifier: WORKSPACE_MEMBER_STANDARD_FIELD_IDS.favorites,

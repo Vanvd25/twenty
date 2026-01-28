@@ -129,7 +129,11 @@ export abstract class CommonBaseQueryRunnerService<
       args.selectedFields,
     );
 
-    this.validateQueryComplexity(selectedFieldsResult, args);
+    this.validateQueryComplexity(
+      selectedFieldsResult,
+      args,
+      queryRunnerContext,
+    );
 
     const processedArgs = {
       ...(await this.processArgs(args, queryRunnerContext, this.operationName)),
@@ -137,7 +141,6 @@ export abstract class CommonBaseQueryRunnerService<
     } as CommonExtendedInput<Args>;
 
     return this.globalWorkspaceOrmManager.executeInWorkspaceContext(
-      authContext,
       async () =>
         this.executeQueryAndEnrichResults(
           processedArgs,
@@ -145,6 +148,7 @@ export abstract class CommonBaseQueryRunnerService<
           queryRunnerContext,
           commonQueryParser,
         ),
+      authContext,
     );
   }
 
@@ -174,6 +178,7 @@ export abstract class CommonBaseQueryRunnerService<
   protected computeQueryComplexity(
     selectedFieldsResult: CommonSelectedFieldsResult,
     _args: CommonInput<Args>,
+    _queryRunnerContext: CommonBaseQueryRunnerContext,
   ): number {
     const simpleFieldsComplexity = 1;
     const selectedFieldsComplexity =
@@ -308,8 +313,8 @@ export abstract class CommonBaseQueryRunnerService<
       );
     }
 
-    if (isDefined(authContext.application?.defaultServerlessFunctionRoleId)) {
-      return authContext.application?.defaultServerlessFunctionRoleId;
+    if (isDefined(authContext.application?.defaultLogicFunctionRoleId)) {
+      return authContext.application?.defaultLogicFunctionRoleId;
     }
 
     if (!isDefined(authContext.userWorkspaceId)) {
@@ -406,6 +411,7 @@ export abstract class CommonBaseQueryRunnerService<
   private validateQueryComplexity(
     selectedFieldsResult: CommonSelectedFieldsResult,
     args: CommonInput<Args>,
+    queryRunnerContext: CommonBaseQueryRunnerContext,
   ) {
     const maximumComplexity = this.twentyConfigService.get(
       'COMMON_QUERY_COMPLEXITY_LIMIT',
@@ -424,6 +430,7 @@ export abstract class CommonBaseQueryRunnerService<
     const queryComplexity = this.computeQueryComplexity(
       selectedFieldsResult,
       args,
+      queryRunnerContext,
     );
 
     if (queryComplexity > maximumComplexity) {

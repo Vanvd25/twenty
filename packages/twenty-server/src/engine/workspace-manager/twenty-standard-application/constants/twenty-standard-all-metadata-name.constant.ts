@@ -8,7 +8,11 @@ export const TWENTY_STANDARD_ALL_METADATA_NAME = [
   'viewFilter',
   'viewGroup',
   'view',
+  'navigationMenuItem',
   'role',
   'agent',
   'skill',
+  'pageLayout',
+  'pageLayoutTab',
+  'pageLayoutWidget',
 ] as const satisfies AllMetadataName[];

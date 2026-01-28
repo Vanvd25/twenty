@@ -14,7 +14,7 @@ export const getFlatObjectMetadataMock = (
   return {
     viewIds: [],
     indexMetadataIds: [],
-    fieldMetadataIds: [],
+    fieldIds: [],
     description: 'default flat object metadata description',
     icon: 'icon',
     id: faker.string.uuid(),
@@ -34,7 +34,7 @@ export const getFlatObjectMetadataMock = (
     nameSingular: 'defaultflatObjectMetadataNameSingular',
     shortcut: 'shortcut',
     standardId: null,
-    applicationId: null,
+    applicationId: faker.string.uuid(),
     standardOverrides: null,
     targetTableName: '',
     workspaceId: faker.string.uuid(),

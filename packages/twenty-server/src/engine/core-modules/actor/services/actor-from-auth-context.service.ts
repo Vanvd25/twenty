@@ -99,10 +99,6 @@ export class ActorFromAuthContextService {
         },
       );
 
-    this.logger.log(
-      `Injecting ${fieldName} from auth context for object ${objectMetadataNameSingular} and workspace ${workspace.id}`,
-    );
-
     const { idByNameSingular } = buildObjectIdByNameMaps(
       flatObjectMetadataMaps,
     );
@@ -169,7 +165,6 @@ export class ActorFromAuthContextService {
 
     if (isDefined(user)) {
       return this.globalWorkspaceOrmManager.executeInWorkspaceContext(
-        authContext as WorkspaceAuthContext,
         async () => {
           const workspaceMemberRepository =
             await this.globalWorkspaceOrmManager.getRepository<WorkspaceMemberWorkspaceEntity>(
@@ -191,6 +186,7 @@ export class ActorFromAuthContextService {
             workspaceMemberId: workspaceMember.id,
           });
         },
+        authContext as WorkspaceAuthContext,
       );
     }
 

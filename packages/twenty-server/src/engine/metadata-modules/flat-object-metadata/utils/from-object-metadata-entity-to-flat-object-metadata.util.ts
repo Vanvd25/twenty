@@ -14,17 +14,14 @@ export const fromObjectMetadataEntityToFlatObjectMetadata = (
 
   return {
     ...objectMetadataEntityWithoutRelations,
+    universalIdentifier:
+      objectMetadataEntityWithoutRelations.universalIdentifier,
     createdAt: objectMetadataEntity.createdAt.toISOString(),
     updatedAt: objectMetadataEntity.updatedAt.toISOString(),
     viewIds: objectMetadataEntity.views.map((viewEntity) => viewEntity.id),
     indexMetadataIds: objectMetadataEntity.indexMetadatas.map(
       (indexEntity) => indexEntity.id,
     ),
-    fieldMetadataIds: objectMetadataEntity.fields.map(
-      (fieldEntity) => fieldEntity.id,
-    ),
-    universalIdentifier:
-      objectMetadataEntityWithoutRelations.standardId ??
-      objectMetadataEntityWithoutRelations.id,
+    fieldIds: objectMetadataEntity.fields.map((fieldEntity) => fieldEntity.id),
   };
 };

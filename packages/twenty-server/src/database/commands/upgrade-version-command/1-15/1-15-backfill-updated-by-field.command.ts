@@ -30,7 +30,7 @@ import {
   TASK_STANDARD_FIELD_IDS,
   WORKFLOW_RUN_STANDARD_FIELD_IDS,
   WORKFLOW_STANDARD_FIELD_IDS,
-} from 'src/engine/workspace-manager/workspace-sync-metadata/constants/standard-field-ids';
+} from 'src/engine/workspace-manager/workspace-migration/constant/standard-field-ids';
 
 @Command({
   name: 'upgrade:1-15:backfill-updated-by-field',
@@ -112,7 +112,7 @@ export class BackfillUpdatedByFieldCommand extends ActiveOrSuspendedWorkspacesMi
       }
 
       const flatFieldMetadatas = findManyFlatEntityByIdInFlatEntityMapsOrThrow({
-        flatEntityIds: flatObjectMetadata.fieldMetadataIds,
+        flatEntityIds: flatObjectMetadata.fieldIds,
         flatEntityMaps: flatFieldMetadataMaps,
       });
 

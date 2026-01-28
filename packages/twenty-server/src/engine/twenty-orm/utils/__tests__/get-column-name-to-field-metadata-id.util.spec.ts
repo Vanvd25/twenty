@@ -7,7 +7,7 @@ import { getColumnNameToFieldMetadataIdMap } from 'src/engine/twenty-orm/utils/g
 
 describe('getColumnNameToFieldMetadataIdMap', () => {
   const createMockFlatObjectMetadata = (
-    fieldMetadataIds: string[],
+    fieldIds: string[],
   ): FlatObjectMetadata =>
     ({
       id: 'test-object-id',
@@ -26,9 +26,9 @@ describe('getColumnNameToFieldMetadataIdMap', () => {
       workspaceId: 'test-workspace-id',
       universalIdentifier: 'test-object-id',
       indexMetadataIds: [],
-      fieldMetadataIds,
+      fieldIds,
       viewIds: [],
-      applicationId: null,
+      applicationId: 'test-application-id',
       isLabelSyncedWithName: false,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),

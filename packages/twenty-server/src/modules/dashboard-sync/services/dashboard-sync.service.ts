@@ -60,7 +60,6 @@ export class DashboardSyncService {
 
     try {
       await this.globalWorkspaceOrmManager.executeInWorkspaceContext(
-        authContext,
         async () => {
           const dashboardRepository =
             await this.globalWorkspaceOrmManager.getRepository(
@@ -71,93 +70,11 @@ export class DashboardSyncService {
 
           await dashboardRepository.update({ pageLayoutId }, { updatedAt });
         },
+        authContext,
       );
     } catch (error) {
       this.logger.error(
         `Failed to update dashboard updatedAt for page layout ${pageLayoutId}: ${error}`,
-      );
-    }
-  }
-
-  async softDeleteLinkedDashboardsByPageLayoutId({
-    pageLayoutId,
-    workspaceId,
-    deletedAt,
-  }: {
-    pageLayoutId: string;
-    workspaceId: string;
-    deletedAt: Date;
-  }): Promise<void> {
-    const isDashboard = await this.isPageLayoutOfTypeDashboard({
-      pageLayoutId,
-      workspaceId,
-    });
-
-    if (!isDashboard) {
-      return;
-    }
-
-    const authContext = buildSystemAuthContext(workspaceId);
-
-    try {
-      await this.globalWorkspaceOrmManager.executeInWorkspaceContext(
-        authContext,
-        async () => {
-          const dashboardRepository =
-            await this.globalWorkspaceOrmManager.getRepository(
-              workspaceId,
-              'dashboard',
-              { shouldBypassPermissionChecks: true },
-            );
-
-          await dashboardRepository.update({ pageLayoutId }, { deletedAt });
-        },
-      );
-    } catch (error) {
-      this.logger.error(
-        `Failed to soft delete dashboards for page layout ${pageLayoutId}: ${error}`,
-      );
-    }
-  }
-
-  async restoreLinkedDashboardsByPageLayoutId({
-    pageLayoutId,
-    workspaceId,
-  }: {
-    pageLayoutId: string;
-    workspaceId: string;
-  }): Promise<void> {
-    const isDashboard = await this.isPageLayoutOfTypeDashboard({
-      pageLayoutId,
-      workspaceId,
-    });
-
-    if (!isDashboard) {
-      return;
-    }
-
-    const authContext = buildSystemAuthContext(workspaceId);
-
-    try {
-      await this.globalWorkspaceOrmManager.executeInWorkspaceContext(
-        authContext,
-        async () => {
-          const dashboardRepository =
-            await this.globalWorkspaceOrmManager.getRepository(
-              workspaceId,
-              'dashboard',
-              { shouldBypassPermissionChecks: true },
-            );
-
-          await dashboardRepository.update(
-            { pageLayoutId },
-            { deletedAt: null },
-          );
-        },
-      );
-    } catch (error) {
-      this.logger.error(
-        `Failed to restore dashboards for page layout ${pageLayoutId}: ${error}`,
       );
     }
   }
